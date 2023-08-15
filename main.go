@@ -1,82 +1,37 @@
 package main
 
 import (
-	"io"
-	"net/http"
-	"time"
+	"ginpractice/middleware"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	router := gin.Default()
-	router.GET("/getUrlData/:name/:age", getUrlData)
-	router.POST("/getDataPost", getDataPost)
-	auth := gin.BasicAuth(gin.Accounts{
-		"Fidelis" : "Pass2",
-	})
-	
-	admin := router.Group("/admin", auth)
+	// router.Use(middleware.Authenticate)
+	admin := router.Group("/admin", middleware.CustomBasicAuth("fidel", "pass"))
 	{
-		admin.GET("/getData", getData)
+		admin.GET("/getData2", middleware.AddHeader, getData2)
+		admin.GET("/getData3", getData3)
+	}
 
-	}
-	client := router.Group("/client")
-	{
-		client.GET("/getQueryString", getQueryString)
-	}
-	server := &http.Server{
-		Addr:         ":9090",
-		Handler:      router,
-		ReadTimeout:  10 * time.Second,
-		WriteTimeout: 10 * time.Second,
-	}
-	server.ListenAndServe()
+	router.GET("/getData", getData)
+
+	router.Run(":8080")
+
 }
-// func auth(c *gin.Context) {
-// 	if c.GetHeader("Authorization") != "Bearer token1234" {
-// 		c.AbortWithStatusJSON(401, gin.H{"message": "Unauthorized"})
-// 		return
-// 	}
-// 	c.Next()
-// }
-
-// http://localhost:8080/getData
 func getData(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"message": "Hi, I am a gin get Data bobo",
+		"message": "I am get Data handler 1",
 	})
 }
-
-// http://localhost:8080//getUrlData/:name/:age
-func getUrlData(c *gin.Context) {
-	name := c.Param("name")
-	age := c.Param("age")
+func getData2(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"message": "Hi, I am a get Url Data",
-		"name":    name,
-		"age":     age,
+		"message": "I am get Data handler 2",
 	})
 }
-
-// http://localhost:8080/getQueryString?name=Fidel&age=2
-func getQueryString(c *gin.Context) {
-	name := c.Query("name")
-	age := c.Query("age")
+func getData3(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"message": "Hi, I am a gin get Query string",
-		"name":    name,
-		"age":     age,
-	})
-}
-
-// http://localhost:8080/getDataPost
-func getDataPost(c *gin.Context) {
-	body := c.Request.Body
-	value, _ := io.ReadAll(body)
-
-	c.JSON(200, gin.H{
-		"message": "Hi I am a gin post Data gee",
-		"body":    string(value),
+		"message": "I am get Data handler 3",
 	})
 }
