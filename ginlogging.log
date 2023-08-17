@@ -1,0 +1,5 @@
+[GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
+Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
+[GIN-debug] Listening and serving HTTP on :8080
+{ ::1 - [Thu, 17 Aug 2023 17:34:59 WAT] " GET /getData HTTP/1.1 200 516µs "PostmanRuntime/7.32.3" "} 
+{ ::1 - [Thu, 17 Aug 2023 17:35:11 WAT] " GET /getData HTTP/1.1 200 0s "PostmanRuntime/7.32.3" "} 
