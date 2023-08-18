@@ -1,39 +1,39 @@
 package main
 
 import (
-	"fmt"
-	"ginpractice/logger"
-	"ginpractice/middleware"
-	"io"
 	"os"
+	"io"
 	"github.com/gin-gonic/gin"
-	"github.com/mattn/go-colorable"
+	"github.com/sirupsen/logrus"
 )
 
 func main() {
-	//Enforces colour for other terminals 
-	//Must be put above router definition if it should work
-	gin.ForceConsoleColor()
-	gin.DefaultWriter = colorable.NewColorableStdout()
+	logrus.SetLevel(logrus.TraceLevel)
+	logrus.SetReportCaller(true)
+	logrus.SetFormatter(&logrus.JSONFormatter{
+		DisableTimestamp: true,
+		PrettyPrint: true,
+	})
+	
+	logrus.WithField("Debug", "Creating File").Debug("Starting file creation")
+	file, err := os.Create("logrus.log")
+	if err != nil {
+		logrus.WithFields(logrus.Fields{
+			"method": "os.Create",
+			"error": true,
+		}).Error(err)
+	}
+	logrus.WithField("Info", "Created File").Debug("End file creation")
+	logrus.SetOutput(io.MultiWriter(file, os.Stdout))
+	
 
 	router := gin.Default()
-
-	//Was: GET    /getData      --> main.getData (3 handlers)
-	//Now: Endpoint formatted as GET http method, /getData path, main.getData handlerName, 4 nuHandlers
-	//Doesn't print to file no matter where put
-	gin.DebugPrintRouteFunc = logger.DebugRoute
-
-	f, _ := os.Create("ginlogging.log")
-	gin.DefaultWriter = io.MultiWriter(f, os.Stdout)
-
-	//Should be put below default writer initialization if you want it to also write to the file
-	router.Use(gin.LoggerWithFormatter(logger.FormatLogs))
-	router.GET("/getData", middleware.CustomBasicAuth3, getData)
+	router.GET("/getData", getData)
+	logrus.Infof("starting server on port 8080")
 	router.Run(":8080")
 }
 func getData(c *gin.Context) {
-	username, _ := c.Get(gin.AuthUserKey)
 	c.JSON(200, gin.H{
-		"message": fmt.Sprintf("You've been authorized user '%s'", username),
+		"message": "Hi I am a get data method",
 	})
 }
