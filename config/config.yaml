@@ -1,0 +1,7 @@
+version: 1.0.0
+Logging:
+  stdout: false
+  level: debug
+  path: applog.log
+server:
+  port: ":7004"
