@@ -1,17 +1,31 @@
 {
-  "file": "C:/Users/HiPcUser/Documents/Gin-Practice/logger/logger.go:107",
-  "func": "ginpractice/logger.PrintLn",
+  "file": "C:/Users/HiPcUser/Documents/Gin-Practice/src/logger/logger.go:94",
+  "func": "ginpractice/src/logger.InfoLn",
   "level": "info",
-  "msg": "{\"request_client_ip\":\"::1\",\"request_method\":\"GET\",\"request_post_data\":\"\",\"request_proto\":\"HTTP/1.1\",\"request_referer\":\"\",\"request_time\":\"2023-08-19 02:34:07.7847264 +0100 WAT m=+12.532031001\",\"request_ua\":\"PostmanRuntime/7.32.3\",\"request_url\":\"/api/GetData\",\"version\":\"1.0.0\",\"x-request-id\":\"Testingmic12444\"}",
-  "time": "2023-08-19 02:34:07"
+  "msg": "Logger initialized successfully",
+  "time": "2023-08-19 15:02:24"
 }
 {
-  "file": "C:/Users/HiPcUser/Documents/Gin-Practice/logger/logger.go:62",
-  "func": "ginpractice/logger.LogInfo",
+  "file": "C:/Users/HiPcUser/Documents/Gin-Practice/src/logger/logger.go:94",
+  "func": "ginpractice/src/logger.InfoLn",
   "level": "info",
-  "msg": "In GetData",
-  "path": "/api/GetData",
-  "time": "2023-08-19 02:34:07",
+  "msg": "Started router initialization",
+  "time": "2023-08-19 15:02:24"
+}
+{
+  "file": "C:/Users/HiPcUser/Documents/Gin-Practice/src/logger/logger.go:109",
+  "func": "ginpractice/src/logger.PrintLn",
+  "level": "info",
+  "msg": "{\"request_client_ip\":\"::1\",\"request_method\":\"GET\",\"request_post_data\":\"\",\"request_proto\":\"HTTP/1.1\",\"request_referer\":\"\",\"request_time\":\"2023-08-19 15:02:29.8370027 +0100 WAT m=+5.092791901\",\"request_ua\":\"PostmanRuntime/7.32.3\",\"request_url\":\"/api/GetQueryStringData?age=2\",\"version\":\"1.0.0\",\"x-request-id\":\"Testingmic12444\"}",
+  "time": "2023-08-19 15:02:29"
+}
+{
+  "file": "C:/Users/HiPcUser/Documents/Gin-Practice/src/logger/logger.go:64",
+  "func": "ginpractice/src/logger.LogInfo",
+  "level": "info",
+  "msg": "In GetQueryStringData",
+  "path": "/api/GetQueryStringData?age=2",
+  "time": "2023-08-19 15:02:29",
   "version": "",
   "x-request-id": "Testingmic12444"
 }
